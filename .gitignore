@@ -1,5 +1,5 @@
 node_modules/
-android/
+/android/
 package-lock.json.bak
 *.apk
 .DS_Store
