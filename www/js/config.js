@@ -6,24 +6,22 @@ window.CONFIG = {
   // Senin adın (çöp adam ve bildirimlerde geçer)
   yourName: "Umut",
 
-  // Sevgilinin adı. Boş bırakırsan uygulama ilk açılışta soracak.
-  herName: "",
+  // Sevgilinin adı
+  herName: "Nisa",
 
-  // İstersen telefon numarası yaz (örn "+905551234567").
-  // Doluysa mektup ekranında "Affettim 💗" diye SMS atma butonu çıkar.
-  herPhone: "",
+  // Mektup ekranındaki "Umut'a yaz" butonu bu numaraya SMS açar.
+  herPhone: "+905335916577",
 
-  // Mektup. {isim} yerine sevgilinin adı gelir. Buraya kendi kelimelerini yaz!
+  // Mektup. {isim} yerine sevgilinin adı gelir.
   letterTitle: "Sana bir şey söylemem lazım",
   letter:
     "{isim},\n\n" +
-    "Bunu sana bir mobil uygulama yaparak, biraz da mahcup bir şekilde söylemek istedim: " +
-    "çok stresliydim ve seni üzdüm. Bunun bir açıklaması olabilir ama mazereti olamaz.\n\n" +
-    "Seni çok özlüyorum. Düğme de seni özledi, kapıya bakıp duruyor.\n\n" +
-    "Umut da hak ettiği dayağı yedi, morardı bile. :)\n\n" +
+    "Bunu sana bir uygulama yaparak söylemek istedim çünkü kelimelerim yetmedi. " +
+    "Çok stresliydim ve bunu sana yansıttım, seni üzdüm. Bunun bir açıklaması olabilir ama mazereti olamaz. Özür dilerim.\n\n" +
+    "Seni çok özlüyorum. Düğme de seni özledi, kapıya bakıp duruyor. 🐈‍⬛\n\n" +
+    "Umut da hak ettiği dayağı yedi, bak morardı bile. :)\n\n" +
     "Bana bir şans daha verirsen daha sabırlı, daha dikkatli olacağım. " +
-    "Sözüm söz.\n\n" +
-    "Beni affedersen bana bir mesaj atar mısın?\n\n" +
+    "Ama ne olursa olsun, seni dinlemek isterim. Konuşalım mı?\n\n" +
     "— {sen}",
 
   // Bildirim mesajları (rastgele seçilir)
@@ -37,6 +35,8 @@ window.CONFIG = {
     "{sen} dayak yemeyi hak etti, gel vur 🥊",
     "{sen} seni çok özledi 💔",
     "{sen} seni çok özledi, Düğme de öyle 🐈‍⬛",
+    "{isim}, Düğme seni bekliyor 🐾",
+    "{isim}, {sen} sana bir şey söylemek istiyor 💌",
     "Düğme sana miyavladı 🐾",
     "Düğme seni görmek istiyor 👀",
     "Düğme kendini yalnız hissediyor 🥺"

@@ -346,7 +346,7 @@ window.App = (function () {
       '<button class="btn ghost" id="m-close">Kapat</button></div>'
     );
     $("#m-love").onclick = function () { heartRain(30); SFX.meow(1.2); closeModal(); say("Düğme de seni çok seviyor 💗", 3500); show("home"); };
-    if (phone) $("#m-sms").onclick = function () { window.location.href = "sms:" + phone + "?body=" + encodeURIComponent("Konuşan Düğme'yi aldım 💗"); };
+    if (phone) $("#m-sms").onclick = function () { window.location.href = "sms:" + phone + "?body=" + encodeURIComponent("Mektubunu okudum 💗"); };
     $("#m-close").onclick = closeModal;
   }
   function intro() {
