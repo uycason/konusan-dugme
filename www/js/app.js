@@ -342,11 +342,11 @@ window.App = (function () {
     modal(
       '<div class="letter"><h3>💌 ' + fill(CONFIG.letterTitle) + "</h3><p>" + fill(CONFIG.letter).replace(/</g, "&lt;") + "</p>" +
       '<button class="btn" id="m-love">💗 Okudum</button>' +
-      (phone ? '<button class="btn ghost" id="m-sms">💬 ' + (CONFIG.yourName || "Umut") + "'a yaz</button>" : "") +
+      (phone ? '<button class="btn ghost" id="m-sms">💬 Mesaj gönder</button>' : "") +
       '<button class="btn ghost" id="m-close">Kapat</button></div>'
     );
     $("#m-love").onclick = function () { heartRain(30); SFX.meow(1.2); closeModal(); say("Düğme de seni çok seviyor 💗", 3500); show("home"); };
-    if (phone) $("#m-sms").onclick = function () { window.location.href = "sms:" + phone + "?body=" + encodeURIComponent("Mektubunu okudum 💗"); };
+    if (phone) $("#m-sms").onclick = function () { window.location.href = "sms:" + phone + "?body=" + encodeURIComponent("Seni affediyorum birtanem 💗"); };
     $("#m-close").onclick = closeModal;
   }
   function intro() {

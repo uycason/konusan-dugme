@@ -9,7 +9,8 @@ window.CONFIG = {
   // Sevgilinin adı
   herName: "Nisa",
 
-  // Mektup ekranındaki "Umut'a yaz" butonu bu numaraya SMS açar.
+  // SENİN numaran. Nisa mektuptaki "Mesaj gönder"e basınca bu numaraya
+  // "Seni affediyorum birtanem 💗" yazılı bir SMS ekranı açılır.
   herPhone: "+905335916577",
 
   // Mektup. {isim} yerine sevgilinin adı gelir.

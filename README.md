@@ -40,7 +40,7 @@ Not: Bu uygulama sadece **Android** içindir. iPhone'a APK kurulmaz.
 
 - `yourName`: senin adın (bildirimlerde ve mektupta geçer)
 - `herName`: sevgilinin adı (boş bırakırsan uygulama ilk açılışta sorar)
-- `herPhone`: doldurursan mektup ekranında "Umut'a yaz" SMS butonu çıkar
+- `herPhone`: doldurursan mektup ekranında "Mesaj gönder" butonu çıkar (SMS sana, "Seni affediyorum birtanem 💗" yazılı gider)
 - `letter`: **mektubu kendi kelimelerinle yaz.** Hazır metin sadece taslak.
 - `notifications`: bildirim cümleleri
 
