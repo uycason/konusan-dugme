@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a1030">
+<title>Konuşan Düğme</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- Üst çubuk -->
+  <header id="topbar">
+    <div class="stat"><span>🍗</span><div class="bar"><i id="b-hunger"></i></div></div>
+    <div class="stat"><span>💗</span><div class="bar"><i id="b-happy"></i></div></div>
+    <div class="stat"><span>⚡</span><div class="bar"><i id="b-energy"></i></div></div>
+    <div id="coins" class="coins">🪙 <b id="coin-n">0</b></div>
+    <button id="btn-mute" class="icon-btn" aria-label="Ses">🔊</button>
+  </header>
+
+  <main id="screens">
+
+    <!-- EV -->
+    <section id="screen-home" class="screen">
+      <div id="room"></div>
+      <div id="speech" class="speech hidden"></div>
+      <div id="cat-wrap"><div id="cat"></div></div>
+      <div id="zzz" class="zzz hidden">💤</div>
+      <div id="darkness" class="hidden"></div>
+      <div id="home-actions">
+        <button class="act" id="act-sleep"><span>💡</span>Uyut</button>
+        <button class="act big" id="act-talk"><span>🎤</span>Konuş</button>
+        <button class="act" id="act-letter"><span>💌</span>Mektup</button>
+      </div>
+      <div id="float-layer"></div>
+    </section>
+
+    <!-- BUZDOLABI -->
+    <section id="screen-fridge" class="screen panel">
+      <h2>🧊 Buzdolabı</h2>
+      <p class="hint">Yemeğe dokun, Düğme yesin.</p>
+      <div id="fridge" class="fridge"></div>
+    </section>
+
+    <!-- MARKET -->
+    <section id="screen-market" class="screen panel">
+      <h2>🛒 Market</h2>
+      <div class="tabs"><button class="tab on" data-tab="food">Yiyecek</button><button class="tab" data-tab="acc">Giyecek</button></div>
+      <div id="market" class="grid"></div>
+    </section>
+
+    <!-- OYUNLAR -->
+    <section id="screen-games" class="screen panel">
+      <h2>🎮 Oyunlar</h2>
+      <p class="hint">Oyna, altın kazan, market alışverişi yap!</p>
+      <div id="game-menu" class="grid">
+        <button class="card game-card" data-game="fish"><span class="big-emoji">🐟</span><b>Balık Yakala</b><small>Sepeti kaydır</small></button>
+        <button class="card game-card" data-game="memory"><span class="big-emoji">🃏</span><b>Hafıza</b><small>Eşleri bul</small></button>
+        <button class="card game-card" data-game="mouse"><span class="big-emoji">🐭</span><b>Fare Avı</b><small>Hızlı dokun</small></button>
+        <button class="card game-card" data-game="jump"><span class="big-emoji">🐈‍⬛</span><b>Düğme Zıpla</b><small>Engelleri aş</small></button>
+      </div>
+      <div id="game-area" class="hidden"></div>
+    </section>
+
+    <!-- UMUT'U DÖV -->
+    <section id="screen-beat" class="screen">
+      <div id="beat-stage">
+        <div id="beat-hp-wrap"><span>❤️ Umut'un canı</span><div class="bar big"><i id="beat-hp"></i></div></div>
+        <div id="beat-speech" class="speech hidden"></div>
+        <div id="beat-figure"></div>
+        <div id="beat-fx"></div>
+        <div id="beat-kitty">🐈‍⬛</div>
+        <div id="beat-over" class="hidden">
+          <div class="over-card">
+            <h3>Yeter! Özür dilerim 😭</h3>
+            <p>Umut morardı, bir daha yapmaz.</p>
+            <button class="btn" id="beat-letter">💌 Mektubu oku</button>
+            <button class="btn ghost" id="beat-heal">🩹 İyileştir, tekrar</button>
+          </div>
+        </div>
+      </div>
+      <div id="tools">
+        <button class="tool on" data-tool="punch"><span>👊</span><small>Yumruk</small></button>
+        <button class="tool" data-tool="hammer"><span>🔨</span><small>Çekiç</small></button>
+        <button class="tool" data-tool="slipper"><span>🩴</span><small>Terlik</small></button>
+        <button class="tool" data-tool="glove"><span>🥊</span><small>Eldiven</small></button>
+        <button class="tool" data-tool="pillow"><span>🛏️</span><small>Yastık</small></button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav id="nav">
+    <button class="nav-btn on" data-go="home"><span>🏠</span>Ev</button>
+    <button class="nav-btn" data-go="fridge"><span>🧊</span>Dolap</button>
+    <button class="nav-btn" data-go="market"><span>🛒</span>Market</button>
+    <button class="nav-btn" data-go="games"><span>🎮</span>Oyun</button>
+    <button class="nav-btn" data-go="beat"><span>🥊</span>Umut</button>
+  </nav>
+
+  <!-- Modal (ilk açılış, mektup, mesajlar) -->
+  <div id="modal" class="hidden"><div id="modal-card"></div></div>
+  <div id="toast" class="hidden"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/cat.js"></script>
+<script src="js/app.js"></script>
+<script src="js/games.js"></script>
+<script src="js/beat.js"></script>
+<script src="js/notif.js"></script>
+<script>App.boot();</script>
+</body>
+</html>

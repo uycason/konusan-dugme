@@ -1,0 +1,12 @@
+{
+  "appId": "com.umut.konusandugme",
+  "appName": "Konuşan Düğme",
+  "webDir": "www",
+  "android": { "backgroundColor": "#1a1030" },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_dugme",
+      "iconColor": "#ff5c8a"
+    }
+  }
+}

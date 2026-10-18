@@ -1,0 +1,60 @@
+name: APK derle
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Bağımlılıkları kur
+        run: npm install
+
+      - name: Android projesini oluştur
+        run: npx cap add android
+
+      - name: İkon, izin ve bildirim ayarlarını uygula
+        run: python3 scripts/patch-android.py
+
+      - name: Web dosyalarını Android'e aktar
+        run: npx cap sync android
+
+      - name: APK derle
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: APK'yı adlandır
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Konusan-Dugme.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Konusan-Dugme-APK
+          path: Konusan-Dugme.apk
+
+      - name: Telefondan indirilebilsin diye Release olarak yayınla
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete son-surum --yes --cleanup-tag 2>/dev/null || true
+          gh release create son-surum Konusan-Dugme.apk \
+            --target "${{ github.sha }}" \
+            --title "Konuşan Düğme (son sürüm)" \
+            --notes "Telefondan bu sayfadaki Konusan-Dugme.apk dosyasını indirip kur."
