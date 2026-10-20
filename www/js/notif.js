@@ -37,7 +37,7 @@ window.Notif = (function () {
           let m; do { m = msgs[Math.floor(Math.random() * msgs.length)]; } while (m === last && msgs.length > 1);
           last = m;
           list.push({
-            id: id++, title: "Konuşan Düğme 🐈‍⬛", body: fill(m, S),
+            id: id++, title: "Konuşan Düğme 🐾", body: fill(m, S),
             channelId: "dugme", schedule: { at: d, allowWhileIdle: true }
           });
         });

@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#1a1030">
+<meta name="theme-color" content="#fde6ec">
 <title>Konuşan Düğme</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/music.css">
 </head>
 <body>
 <div id="app">
 
-  <!-- Üst çubuk -->
   <header id="topbar">
-    <div class="stat"><span>🍗</span><div class="bar"><i id="b-hunger"></i></div></div>
-    <div class="stat"><span>💗</span><div class="bar"><i id="b-happy"></i></div></div>
-    <div class="stat"><span>⚡</span><div class="bar"><i id="b-energy"></i></div></div>
-    <div id="coins" class="coins">🪙 <b id="coin-n">0</b></div>
-    <button id="btn-mute" class="icon-btn" aria-label="Ses">🔊</button>
+    <div class="stat"><span class="ico"><i data-ic="drum"></i></span><div class="bar"><i id="b-hunger"></i></div></div>
+    <div class="stat"><span class="ico"><i data-ic="heart"></i></span><div class="bar"><i id="b-happy"></i></div></div>
+    <div class="stat"><span class="ico"><i data-ic="bolt"></i></span><div class="bar"><i id="b-energy"></i></div></div>
+    <div id="coins" class="coins"><i data-ic="coin"></i><b id="coin-n">0</b></div>
+    <button id="btn-mute" class="icon-btn" aria-label="Ses"><i data-ic="vol"></i></button>
   </header>
 
   <main id="screens">
@@ -26,87 +27,102 @@
       <div id="room"></div>
       <div id="speech" class="speech hidden"></div>
       <div id="cat-wrap"><div id="cat"></div></div>
-      <div id="zzz" class="zzz hidden">💤</div>
+      <div id="zzz" class="zzz hidden">z Z z</div>
       <div id="darkness" class="hidden"></div>
       <div id="home-actions">
-        <button class="act" id="act-sleep"><span>💡</span>Uyut</button>
-        <button class="act big" id="act-talk"><span>🎤</span>Konuş</button>
-        <button class="act" id="act-letter"><span>💌</span>Mektup</button>
+        <button class="act" id="act-sleep"><i data-ic="moon"></i><span>Uyut</span></button>
+        <button class="act big" id="act-talk"><i data-ic="mic"></i><span>Konuş</span></button>
+        <button class="act" id="act-letter"><i data-ic="mail"></i><span>Mektup</span></button>
       </div>
       <div id="float-layer"></div>
     </section>
 
-    <!-- BUZDOLABI -->
-    <section id="screen-fridge" class="screen panel">
-      <h2>🧊 Buzdolabı</h2>
-      <p class="hint">Yemeğe dokun, Düğme yesin.</p>
-      <div id="fridge" class="fridge"></div>
-    </section>
-
-    <!-- MARKET -->
-    <section id="screen-market" class="screen panel">
-      <h2>🛒 Market</h2>
-      <div class="tabs"><button class="tab on" data-tab="food">Yiyecek</button><button class="tab" data-tab="acc">Giyecek</button></div>
-      <div id="market" class="grid"></div>
+    <!-- MUTFAK: buzdolabı, market, giyecek -->
+    <section id="screen-kitchen" class="screen panel">
+      <div class="screen-head">
+        <div><h2>Mutfak</h2><p class="hint" id="kitchen-hint">Yemeğe dokun, Düğme yesin.</p></div>
+        <span class="head-bunny" data-bunny="sit|carrot|white|happy"></span>
+      </div>
+      <div class="seg" id="kitchen-tabs">
+        <button class="seg-btn on" data-k="fridge"><i data-ic="fridge"></i>Buzdolabı</button>
+        <button class="seg-btn" data-k="shop"><i data-ic="cart"></i>Market</button>
+        <button class="seg-btn" data-k="wear"><i data-ic="bow"></i>Giyecek</button>
+      </div>
+      <div id="kitchen-body"></div>
     </section>
 
     <!-- OYUNLAR -->
     <section id="screen-games" class="screen panel">
-      <h2>🎮 Oyunlar</h2>
-      <p class="hint">Oyna, altın kazan, market alışverişi yap!</p>
+      <div class="screen-head">
+        <div><h2>Oyunlar</h2><p class="hint">Oyna, altın kazan, alışveriş yap!</p></div>
+        <span class="head-bunny" data-bunny="sit|controller|sky|wow"></span>
+      </div>
       <div id="game-menu" class="grid">
-        <button class="card game-card" data-game="fish"><span class="big-emoji">🐟</span><b>Balık Yakala</b><small>Sepeti kaydır</small></button>
-        <button class="card game-card" data-game="memory"><span class="big-emoji">🃏</span><b>Hafıza</b><small>Eşleri bul</small></button>
-        <button class="card game-card" data-game="mouse"><span class="big-emoji">🐭</span><b>Fare Avı</b><small>Hızlı dokun</small></button>
-        <button class="card game-card" data-game="jump"><span class="big-emoji">🐈‍⬛</span><b>Düğme Zıpla</b><small>Engelleri aş</small></button>
+        <button class="card game-card g1" data-game="fish"><i class="big" data-ic="fish"></i><b>Balık Yakala</b><small>Sepeti kaydır</small><span style="--r:8deg" data-bunny="peek|none|pink|smile"></span></button>
+        <button class="card game-card g2" data-game="memory"><i class="big" data-ic="cards"></i><b>Hafıza</b><small>Eşleri bul</small><span style="--r:-8deg" data-bunny="peek|none|lav|wink"></span></button>
+        <button class="card game-card g3" data-game="mouse"><i class="big" data-ic="mouse"></i><b>Fare Avı</b><small>Hızlı dokun</small><span style="--r:6deg" data-bunny="peek|none|white|wow"></span></button>
+        <button class="card game-card g4" data-game="jump"><i class="big" data-ic="cat"></i><b>Düğme Zıpla</b><small>Engelleri aş</small><span style="--r:-6deg" data-bunny="peek|none|butter|happy"></span></button>
       </div>
       <div id="game-area" class="hidden"></div>
     </section>
 
+    <!-- MÜZİK -->
+    <section id="screen-music" class="screen panel"><div id="music-root"></div></section>
+
     <!-- UMUT'U DÖV -->
     <section id="screen-beat" class="screen">
       <div id="beat-stage">
-        <div id="beat-hp-wrap"><span>❤️ Umut'un canı</span><div class="bar big"><i id="beat-hp"></i></div></div>
+        <div id="beat-hp-wrap"><span><i data-ic="heart"></i>Umut'un canı</span><div class="bar big"><i id="beat-hp"></i></div></div>
         <div id="beat-speech" class="speech hidden"></div>
         <div id="beat-figure"></div>
         <div id="beat-fx"></div>
-        <div id="beat-kitty">🐈‍⬛</div>
+        <span id="beat-kitty" class="beat-kitty" data-ic="cat"></span>
+        <span id="beat-bunny" class="beat-bunny" data-bunny="sit|none|pink|wow"></span>
         <div id="beat-over" class="hidden">
           <div class="over-card">
-            <h3>Yeter! Özür dilerim 😭</h3>
+            <span data-bunny="sit|none|white|cry"></span>
+            <h3>Yeter! Özür dilerim</h3>
             <p>Umut morardı, bir daha yapmaz.</p>
-            <button class="btn" id="beat-letter">💌 Mektubu oku</button>
-            <button class="btn ghost" id="beat-heal">🩹 İyileştir, tekrar</button>
+            <button class="btn" id="beat-letter"><i data-ic="mail"></i>Mektubu oku</button>
+            <button class="btn ghost" id="beat-heal">Umut'u iyileştir</button>
           </div>
         </div>
       </div>
       <div id="tools">
-        <button class="tool on" data-tool="punch"><span>👊</span><small>Yumruk</small></button>
-        <button class="tool" data-tool="hammer"><span>🔨</span><small>Çekiç</small></button>
-        <button class="tool" data-tool="slipper"><span>🩴</span><small>Terlik</small></button>
-        <button class="tool" data-tool="glove"><span>🥊</span><small>Eldiven</small></button>
-        <button class="tool" data-tool="pillow"><span>🛏️</span><small>Yastık</small></button>
+        <button class="tool on" data-tool="punch"><i data-ic="fist"></i><small>Yumruk</small></button>
+        <button class="tool" data-tool="hammer"><i data-ic="hammer"></i><small>Çekiç</small></button>
+        <button class="tool" data-tool="slipper"><i data-ic="slipper"></i><small>Terlik</small></button>
+        <button class="tool" data-tool="glove"><i data-ic="glove"></i><small>Eldiven</small></button>
+        <button class="tool" data-tool="pillow"><i data-ic="pillow"></i><small>Yastık</small></button>
       </div>
     </section>
 
   </main>
 
+  <div id="miniplayer" class="hidden"></div>
+
   <nav id="nav">
-    <button class="nav-btn on" data-go="home"><span>🏠</span>Ev</button>
-    <button class="nav-btn" data-go="fridge"><span>🧊</span>Dolap</button>
-    <button class="nav-btn" data-go="market"><span>🛒</span>Market</button>
-    <button class="nav-btn" data-go="games"><span>🎮</span>Oyun</button>
-    <button class="nav-btn" data-go="beat"><span>🥊</span>Umut</button>
+    <div id="nav-bunny" data-bunny="peek|none|white|smile"></div>
+    <div class="nav-bar">
+      <button class="nav-btn on" data-go="home"><i data-ic="home"></i><span>Ev</span></button>
+      <button class="nav-btn" data-go="kitchen"><i data-ic="fridge"></i><span>Mutfak</span></button>
+      <button class="nav-btn" data-go="games"><i data-ic="pad"></i><span>Oyun</span></button>
+      <button class="nav-btn" data-go="music"><i data-ic="note"></i><span>Müzik</span></button>
+      <button class="nav-btn" data-go="beat"><i data-ic="glove"></i><span>Umut</span></button>
+    </div>
   </nav>
 
-  <!-- Modal (ilk açılış, mektup, mesajlar) -->
-  <div id="modal" class="hidden"><div id="modal-card"></div></div>
+  <div id="modal" class="hidden"><div id="modal-card"><span id="modal-bunny" class="modal-bunny stk"></span><div id="modal-body"></div></div></div>
   <div id="toast" class="hidden"></div>
 </div>
 
 <script src="js/config.js"></script>
 <script src="js/audio.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/bunny.js"></script>
 <script src="js/cat.js"></script>
+<script src="js/lullaby.js"></script>
+<script src="js/music.js"></script>
 <script src="js/app.js"></script>
 <script src="js/games.js"></script>
 <script src="js/beat.js"></script>

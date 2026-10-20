@@ -6,17 +6,26 @@ import os
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 
+def heart(d, cx, cy, r, fill):
+    d.ellipse([cx - r, cy - r * 0.95, cx, cy + r * 0.05], fill=fill)
+    d.ellipse([cx, cy - r * 0.95, cx + r, cy + r * 0.05], fill=fill)
+    d.polygon([(cx - r * 0.98, cy - r * 0.2), (cx + r * 0.98, cy - r * 0.2), (cx, cy + r * 1.05)], fill=fill)
+
+
 def cat_face(size, with_bg):
     k = 4
     N = size * k
     im = Image.new("RGBA", (N, N), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     if with_bg:
-        d.rounded_rectangle([0, 0, N, N], radius=int(N * 0.22), fill=(26, 16, 48, 255))
+        # toz pembe zemin + açık hale + küçük kalpler
+        d.rounded_rectangle([0, 0, N, N], radius=int(N * 0.22), fill=(246, 184, 201, 255))
         glow = Image.new("RGBA", (N, N), (0, 0, 0, 0))
-        ImageDraw.Draw(glow).ellipse([N * 0.12, N * 0.1, N * 0.88, N * 0.86], fill=(255, 92, 138, 60))
+        ImageDraw.Draw(glow).ellipse([N * 0.10, N * 0.08, N * 0.90, N * 0.88], fill=(255, 240, 245, 190))
         im = Image.alpha_composite(im, glow)
         d = ImageDraw.Draw(im)
+        for hx, hy, hr in ((0.17, 0.20, 0.055), (0.84, 0.16, 0.045), (0.88, 0.80, 0.06), (0.13, 0.78, 0.04)):
+            heart(d, N * hx, N * hy, N * hr, (255, 255, 255, 255))
     s = N * (0.60 if with_bg else 0.50)
     cx, cy = N / 2, N / 2 + N * (0.0 if with_bg else 0.01)
     fur = (28, 27, 38, 255)

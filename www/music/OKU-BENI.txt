@@ -1,0 +1,1 @@
+Buraya mp3 dosyalarını koy, sonra www/js/config.js içindeki songs listesine ekle.
