@@ -18,12 +18,11 @@ window.CONFIG = {
   letterTitle: "Sana bir şey söylemem lazım",
   letter:
     "{isim},\n\n" +
-    "Bunu sana bir uygulama yaparak söylemek istedim çünkü kelimelerim yetmedi. " +
-    "Çok stresliydim ve bunu sana yansıttım, seni üzdüm. Bunun bir açıklaması olabilir ama mazereti olamaz. Özür dilerim.\n\n" +
-    "Seni çok özlüyorum. Düğme de seni özledi, kapıya bakıp duruyor. 🐾\n\n" +
-    "Umut da hak ettiği dayağı yedi, bak morardı bile. :)\n\n" +
-    "Bana bir şans daha verirsen daha sabırlı, daha dikkatli olacağım. " +
-    "Ama ne olursa olsun, seni dinlemek isterim. Konuşalım mı?\n\n" +
+    "Bunu sana uygulama yaparak söylemek istedim çünkü daha güzel anliyacağını ve kafandaki yanlış düşünceleri kırabilceğini düşünüyorum.. " +
+    "Ben garip dönemlerden geçtim ve sana yansıttım hiç yansıtmak istemememe rağmen böyle bir hata yaptım ve son derece pişmanım olabildiği kadar pişmanım.\n\n" +
+    "Yokluğun herşeyden daha stresli ve zor geçiyor. Hayatıma renk katan tek şey sensin ve bende seni kırıp üzdüm\n\n" +
+    "Çok pişmanım ve elimden geldiği kadar düzeltmeye çalışacağım. İstediğin kadar döv beni istediğini yap acını çıkar. Ne dersen, yapsan haklısın çünkü.\n\n" +
+    "Bundan sonra daha dikkatli olucam söz veriyorum. Özür dilerim, Seni seviyorum. " +
     "— {sen}",
 
   // ŞARKILAR: Müzik sekmesindeki "Şarkı ekle" düğmesiyle telefondan şarkı eklenir.
@@ -32,7 +31,12 @@ window.CONFIG = {
   //   songs: [
   //     { title: "Bizim Şarkımız", artist: "Sanatçı", file: "music/bizim-sarkimiz.mp3" }
   //   ]
-  songs: [],
+     songs: [
+     { title: "HEAVEN", artist: "Jennie", file: "music/jennie-heaven.mp3" }
+     { title: "FALLEN ANGEL", artist: "Jennie", file: "music/fallen-angel.mp3" }
+     { title: "HEAVEN", artist: "Jennie", file: "music/seoul-city.mp3" }
+     { title: "Özür Remix", artist: "Ben", file: "music/ozur.mp3" }
+   ],
 
   // Bildirim mesajları (rastgele seçilir)
   notifications: [
