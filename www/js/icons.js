@@ -67,6 +67,7 @@ window.Icons = (function () {
     onion: g('<path d="M24 6 C26 14 40 17 40 29 C40 38 33 43 24 43 C15 43 8 38 8 29 C8 17 22 14 24 6 Z" fill="#e8b3dd"/><path d="M24 14 V42 M17 20 Q14 31 19 41 M31 20 Q34 31 29 41" fill="none" stroke-width="1.5" opacity=".55"/>'),
     cactus: g('<path d="M20 44 V14 Q20 7 24 7 Q28 7 28 14 V44 Z" fill="#8fd9a8"/><path d="M20 30 H13 Q9 30 9 26 V19 Q9 16 12 16 Q15 16 15 19 V24 H20" fill="#8fd9a8"/><path d="M28 26 H35 Q39 26 39 22 V15 Q39 12 36 12 Q33 12 33 15 V20 H28" fill="#8fd9a8"/>'),
     box: g('<rect x="6" y="14" width="36" height="28" rx="3" fill="#f2c897"/><path d="M6 22 H42 M20 14 V22 M28 14 V22" fill="none"/><path d="M12 30 H24" stroke-width="1.6" fill="none" opacity=".5"/>'),
+    brush: g('<path d="M12 36 L32 9 Q35 5 39 8 Q43 11 40 15 L19 40 Z" fill="#f6b8c9"/><path d="M32 9 L40 15" fill="none"/><path d="M12 36 C6 37 6 43 4 44 C10 46 18 44 19 40 Z" fill="#8fd3f4"/>'),
     rock: g('<path d="M5 41 Q3 27 13 21 Q17 12 28 14 Q41 14 43 28 Q45 38 41 41 Z" fill="#d0c8d8"/><path d="M15 23 Q19 20 24 22" stroke="#fff" fill="none" opacity=".7"/>'),
     fist: g('<ellipse cx="11" cy="27" rx="5" ry="8" transform="rotate(-15 11 27)" fill="#ffd2b0"/><path d="M13 18 Q13 10 21 10 H33 Q40 10 40 17 V31 Q40 40 31 40 H21 Q13 40 13 31 Z" fill="#ffd2b0"/>' +
       '<path d="M21 10 V22 M28 10 V22 M34 11 V22" fill="none" stroke-width="1.8"/><path d="M15 25 H38" fill="none" stroke-width="1.8" opacity=".6"/>'),

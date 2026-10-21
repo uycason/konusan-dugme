@@ -132,7 +132,7 @@ window.App = (function () {
   }
   function placeNavBunny() {
     var on = $(".nav-btn.on"), nav = $("#nav"), b = $("#nav-bunny"); if (!on || !nav || !b) return;
-    b.style.display = screen === "beat" ? "none" : "";   // Umut ekranında kendi tavşanı var
+    var ga = $("#game-area"); b.style.display = (screen === "beat" || (screen === "games" && ga && !ga.classList.contains("hidden"))) ? "none" : "";   // Umut ekranında kendi tavşanı var
     var r = on.getBoundingClientRect(), n = nav.getBoundingClientRect(), mp = $("#miniplayer");
     b.style.left = Math.round(r.left - n.left + r.width / 2 - 23) + "px";
     // mini oynatıcı açıksa tavşan onun arkasından başını çıkarır

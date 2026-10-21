@@ -15,6 +15,7 @@ window.Games = (function () {
     if (area) { area.innerHTML = ""; area.classList.add("hidden"); }
     $("#game-menu").classList.remove("hidden");
     current = "";
+    App.relayout();
   }
 
   function chip(id, ic, v) { return '<span class="g-chip" id="' + id + '">' + Icons.i(ic) + "<b>" + v + "</b></span>"; }
@@ -31,6 +32,7 @@ window.Games = (function () {
       '<button class="g-quit" id="g-quit">' + Icons.i("back") + "Çık</button>" +
       (hint ? '<div class="g-hint">' + hint + "</div>" : "");
     $("#g-quit").onclick = function () { SFX.click(); stop(); };
+    App.relayout();
     if (hint) later(function () { var h = $(".g-hint", area); if (h) h.classList.add("gone"); }, 2800);
     return area;
   }
@@ -277,7 +279,116 @@ window.Games = (function () {
     raf = requestAnimationFrame(loop);
   }
 
-  var MAP = { fish: fish, memory: memory, mouse: mouse, jump: jump };
+  // ======================================================
+  // 5) ÇİZİM
+  // ======================================================
+  function draw() {
+    begin("draw", ["paw", "Çizim"], ["star", "0"], "Parmağınla çiz, damga da basabilirsin.");
+    var COLORS = ["#4a3340", "#ef6f8e", "#ff9a76", "#ffd23f", "#6ee7a0", "#4fc3f7", "#a98be8", "#a0683c"];
+    var SIZES = [4, 10, 20];
+    var AW = area.clientWidth, AH = area.clientHeight;
+    var bar = document.createElement("div"); bar.className = "dr-bar";
+    var r1 = '<div class="dr-row">' + COLORS.map(function (c, i) { return '<button class="dr-col' + (i === 1 ? " on" : "") + '" data-c="' + c + '" style="background:' + c + '"></button>'; }).join("") + "</div>";
+    var BR = '<svg viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></svg>';
+    var ER = '<svg viewBox="0 0 24 24"><path d="M3 16l9-11 8 6-6 7H7z" fill="currentColor"/><path d="M12 21h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    var r2 = '<div class="dr-row">' +
+      '<button class="dr-btn on" data-t="brush">' + BR + "</button>" +
+      '<button class="dr-btn" data-t="eraser">' + ER + "</button>" +
+      '<button class="dr-btn" data-t="heart">' + Icons.i("heart") + "</button>" +
+      '<button class="dr-btn" data-t="star">' + Icons.i("star") + "</button>" +
+      '<button class="dr-btn" data-t="paw">' + Icons.i("paw") + "</button>" +
+      '<button class="dr-btn" id="dr-size"></button>' +
+      '<button class="dr-btn" id="dr-undo">' + Icons.i("back") + "</button>" +
+      '<button class="dr-btn" id="dr-clear">' + Icons.i("trash") + "</button>" +
+      '<button class="dr-done" id="dr-done">Bitti</button></div>';
+    bar.innerHTML = r1 + r2; area.appendChild(bar);
+
+    var cv = document.createElement("canvas"); cv.id = "dr-canvas";
+    var cw = AW - 24, ch = Math.max(120, AH - 56 - bar.offsetHeight - 10), dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+    cv.style.width = cw + "px"; cv.style.height = ch + "px";
+    area.insertBefore(cv, area.firstChild);
+    var g = cv.getContext("2d");
+    var strokes = [], cur = null, tool = "brush", color = COLORS[1], si = 1, drawing = false;
+
+    function sizeBtn() { $("#dr-size").innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="' + (2 + si * 3.2) + '" fill="currentColor"/></svg>'; }
+    sizeBtn();
+
+    function shape(st) {
+      var x = st.x, y = st.y, s = st.w, i, a, rr;
+      g.beginPath();
+      if (st.k === "heart") {
+        g.moveTo(x, y + s * 0.42);
+        g.bezierCurveTo(x + s * 0.75, y - s * 0.05, x + s * 0.4, y - s * 0.6, x, y - s * 0.22);
+        g.bezierCurveTo(x - s * 0.4, y - s * 0.6, x - s * 0.75, y - s * 0.05, x, y + s * 0.42);
+      } else if (st.k === "star") {
+        for (i = 0; i < 10; i++) { a = -Math.PI / 2 + i * Math.PI / 5; rr = i % 2 ? s * 0.25 : s * 0.6; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+        g.closePath();
+      } else {
+        g.moveTo(x + s * 0.3, y + s * 0.2); g.arc(x, y + s * 0.2, s * 0.3, 0, 6.2832);
+        [[-0.34, -0.12], [-0.12, -0.38], [0.12, -0.38], [0.34, -0.12]].forEach(function (o) { g.moveTo(x + o[0] * s + s * 0.13, y + o[1] * s); g.arc(x + o[0] * s, y + o[1] * s, s * 0.13, 0, 6.2832); });
+      }
+      g.fillStyle = st.c; g.fill();
+      g.lineWidth = 3; g.strokeStyle = "#fff"; g.lineJoin = "round"; g.stroke();
+    }
+    function seg(st, from) {
+      var p = st.p;
+      g.globalCompositeOperation = st.e ? "destination-out" : "source-over";
+      g.strokeStyle = st.c; g.fillStyle = st.c; g.lineWidth = st.w; g.lineCap = "round"; g.lineJoin = "round";
+      if (p.length === 1) { g.beginPath(); g.arc(p[0][0], p[0][1], st.w / 2, 0, 6.2832); g.fill(); }
+      else { g.beginPath(); g.moveTo(p[from][0], p[from][1]); for (var i = from + 1; i < p.length; i++) g.lineTo(p[i][0], p[i][1]); g.stroke(); }
+      g.globalCompositeOperation = "source-over";
+    }
+    function redraw() {
+      g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      strokes.forEach(function (st) { if (st.k) shape(st); else seg(st, 0); });
+      hud(null, strokes.length);
+    }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    function pos(e) { var r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cw / r.width, (e.clientY - r.top) * ch / r.height]; }
+    function down(e) {
+      if (ended || !e.isPrimary) return;
+      var q = pos(e); drawing = true;
+      try { cv.setPointerCapture(e.pointerId); } catch (x) {}
+      e.stopPropagation();
+      if (tool === "heart" || tool === "star" || tool === "paw") {
+        var st = { k: tool, x: q[0], y: q[1], w: SIZES[si] * 1.6 + 22, c: color };
+        strokes.push(st); shape(st); SFX.pop(); hud(null, strokes.length); drawing = false; return;
+      }
+      cur = { c: tool === "eraser" ? "#000" : color, e: tool === "eraser", w: tool === "eraser" ? SIZES[si] * 1.8 + 8 : SIZES[si], p: [q] };
+      strokes.push(cur); seg(cur, 0);
+    }
+    function move(e) {
+      if (!drawing || !cur) return;
+      var q = pos(e), l = cur.p[cur.p.length - 1];
+      if (Math.abs(q[0] - l[0]) + Math.abs(q[1] - l[1]) < 1.5) return;
+      cur.p.push(q); seg(cur, cur.p.length - 2);
+    }
+    function up() { if (drawing && cur) { hud(null, strokes.length); } drawing = false; cur = null; }
+    cv.addEventListener("pointerdown", down); cv.addEventListener("pointermove", move);
+    cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+
+    App.$$(".dr-col", bar).forEach(function (b) {
+      b.addEventListener("click", function () {
+        SFX.click(); color = b.getAttribute("data-c");
+        App.$$(".dr-col", bar).forEach(function (x) { x.classList.toggle("on", x === b); });
+        if (tool === "eraser") { tool = "brush"; setTool(); }
+      });
+    });
+    function setTool() { App.$$("[data-t]", bar).forEach(function (x) { x.classList.toggle("on", x.getAttribute("data-t") === tool); }); }
+    App.$$("[data-t]", bar).forEach(function (b) { b.addEventListener("click", function () { SFX.click(); tool = b.getAttribute("data-t"); setTool(); }); });
+    $("#dr-size").onclick = function () { SFX.click(); si = (si + 1) % SIZES.length; sizeBtn(); };
+    $("#dr-undo").onclick = function () { SFX.click(); strokes.pop(); redraw(); };
+    $("#dr-clear").onclick = function () { SFX.pop(); strokes = []; redraw(); };
+    $("#dr-done").onclick = function () {
+      var n = strokes.length;
+      if (n < 3) { SFX.bad(); App.toast("Önce biraz çiz :)"); return; }
+      finish("Ne güzel çizdin!", n + " çizgi ve damga", Math.min(12, n), "love");
+    };
+  }
+
+  var MAP = { fish: fish, memory: memory, mouse: mouse, jump: jump, draw: draw };
   function start(id) { (MAP[id] || fish)(); }
   return { start: start, stop: stop };
 })();

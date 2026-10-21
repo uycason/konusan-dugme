@@ -30,6 +30,9 @@ window.CONFIG = {
   // Uygulamanın İÇİNE hazır şarkı koymak istersen mp3 dosyalarını www/music/ klasörüne at,
   // sonra buraya şöyle yaz (APK yeniden derlenince hazır gelir):
   //   songs: [
+  //     { title: "Bizim Şarkımız", artist: "Sanatçı", file: "music/bizim-sarkimiz.mp3" }
+  //   ]
+  songs: [
     { title: "Özür Remix", artist: "Ben", file: "music/ozur.mp3" },
     { title: "HEAVEN", artist: "Jennie", file: "music/jennie-heaven.mp3" },
     { title: "FALLEN ANGEL", artist: "Jennie", file: "music/fallen-angel.mp3" },

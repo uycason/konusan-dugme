@@ -62,6 +62,7 @@
         <button class="card game-card g2" data-game="memory"><i class="big" data-ic="cards"></i><b>Hafıza</b><small>Eşleri bul</small><span style="--r:-8deg" data-bunny="peek|none|lav|wink"></span></button>
         <button class="card game-card g3" data-game="mouse"><i class="big" data-ic="mouse"></i><b>Fare Avı</b><small>Hızlı dokun</small><span style="--r:6deg" data-bunny="peek|none|white|wow"></span></button>
         <button class="card game-card g4" data-game="jump"><i class="big" data-ic="cat"></i><b>Düğme Zıpla</b><small>Engelleri aş</small><span style="--r:-6deg" data-bunny="peek|none|butter|happy"></span></button>
+        <button class="card game-card g5 wide" data-game="draw"><i class="big" data-ic="brush"></i><b>Çizim</b><small>Parmağınla çiz, damga bas</small><span style="--r:6deg" data-bunny="peek|none|peach|love"></span></button>
       </div>
       <div id="game-area" class="hidden"></div>
     </section>
@@ -117,6 +118,10 @@
 </div>
 
 <script src="js/config.js"></script>
+<script>
+/* config.js bozulursa uygulama yine de açılsın */
+if (!window.CONFIG) window.CONFIG = { yourName: "Umut", herName: "", letterTitle: "Mektup", letter: "Mektup yüklenemedi: config.js dosyasında bir yazım hatası var.", songs: [], notifications: ["Düğme seni bekliyor"] };
+</script>
 <script src="js/audio.js"></script>
 <script src="js/icons.js"></script>
 <script src="js/bunny.js"></script>
