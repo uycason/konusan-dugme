@@ -17,13 +17,13 @@ window.CONFIG = {
   // Mektup. {isim} yerine sevgilinin adı gelir.
   letterTitle: "Sana bir şey söylemem lazım",
   letter:
-    "{isim},\n\n" +
-    "Bunu sana bir uygulama yaparak söylemek istedim çünkü kelimelerim yetmedi. " +
-    "Çok stresliydim ve bunu sana yansıttım, seni üzdüm. Bunun bir açıklaması olabilir ama mazereti olamaz. Özür dilerim.\n\n" +
-    "Seni çok özlüyorum. Düğme de seni özledi, kapıya bakıp duruyor. 🐾\n\n" +
-    "Umut da hak ettiği dayağı yedi, bak morardı bile. :)\n\n" +
-    "Bana bir şans daha verirsen daha sabırlı, daha dikkatli olacağım. " +
-    "Ama ne olursa olsun, seni dinlemek isterim. Konuşalım mı?\n\n" +
+    "Balım,\n\n" +
+    "Bunu sana uygulama yaparak söylemek istedim çünkü daha güzel anlayacağını ve kafandaki yanlış düşünceleri kırabileceğimi düşünüyorum. " +
+    "Ben garip dönemlerden geçtim ve sana yansıttım. Hiç yansıtmak istemememe rağmen böyle bir hata yaptım ve son derece pişmanım, olabildiği kadar pişmanım. " +
+    "Açıklamam ve mazeretim yok ama özür dilerim.\n\n" +
+    "Yokluğun her şeyden daha stresli ve zor geçiyor. Hayatıma renk katan tek şey sensin ve ben seni kırıp üzdüm. " +
+    "Çok pişmanım ve elimden geldiği kadar düzeltmeye çalışacağım. İstediğin kadar döv beni, istediğini yap, acını çıkar. Ne dersen, ne yapsan haklısın çünkü.\n\n" +
+    "Bundan sonra daha dikkatli olacağım, söz veriyorum. Özür dilerim, seni seviyorum.\n\n" +
     "— {sen}",
 
   // ŞARKILAR: Müzik sekmesindeki "Şarkı ekle" düğmesiyle telefondan şarkı eklenir.
@@ -32,7 +32,12 @@ window.CONFIG = {
   //   songs: [
   //     { title: "Bizim Şarkımız", artist: "Sanatçı", file: "music/bizim-sarkimiz.mp3" }
   //   ]
-  songs: [],
+  songs: [
+    { title: "Özür Dilerim", artist: "Umut", file: "music/Özür Dilerim.mp3" },
+    { title: "Seoul City", artist: "JENNIE", file: "music/JENNIE - Seoul City (Official Video).mp3" },
+    { title: "HEAVEN", artist: "JENNIE", file: "music/JENNIE - HEAVEN (Official Audio).mp3" },
+    { title: "FALLEN ANGEL", artist: "JENNIE", file: "music/JENNIE - FALLEN ANGEL (Official Video).mp3" }
+  ],
 
   // Bildirim mesajları (rastgele seçilir)
   notifications: [

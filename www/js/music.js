@@ -52,7 +52,7 @@ window.Music = (function () {
     function fin(d) { if (done) return; done = true; try { a.removeAttribute("src"); } catch (e) {} cb(d); }
     a.preload = "metadata";
     a.onloadedmetadata = function () { fin(isFinite(a.duration) ? a.duration : 0); };
-    a.onerror = function () { fin(0); };
+    a.onerror = function () { fin(-1); };
     setTimeout(function () { fin(0); }, 5000);
     a.src = src;
   }
@@ -63,9 +63,9 @@ window.Music = (function () {
     tracks = [{ id: "builtin-lullaby", kind: "builtin", title: "Düğme'nin Ninnisi", artist: "Konuşan Düğme", dur: 41 }];
     var songs = (window.CONFIG && CONFIG.songs) || [];
     songs.forEach(function (s, k) {
-      var t = { id: "bundled-" + k, kind: "bundled", title: s.title || parseName(s.file).title, artist: s.artist || "Sana özel", src: s.file, dur: 0 };
+      var t = { id: "bundled-" + k, kind: "bundled", title: s.title || parseName(s.file).title, artist: s.artist || "Sana özel", src: encodeURI(s.file), dur: 0 };
       tracks.push(t);
-      probe(s.file, function (d) { if (d) { t.dur = d; refresh(); } });
+      probe(encodeURI(s.file), function (d) { if (d < 0) { var ix = tracks.indexOf(t); if (ix >= 0) { tracks.splice(ix, 1); refresh(); } } else if (d) { t.dur = d; refresh(); } });
     });
     audio.addEventListener("timeupdate", ui);
     audio.addEventListener("loadedmetadata", function () { if (tracks[cur] && isFinite(audio.duration)) { tracks[cur].dur = audio.duration; refresh(); } });

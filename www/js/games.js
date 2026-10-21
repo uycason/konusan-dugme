@@ -200,8 +200,9 @@ window.Games = (function () {
     var ground = Math.round(H * 0.72), cx = 74;
     var y = 0, vy = 0, onGround = true, dist = 0, fishN = 0, speed = 230, scroll = 0, runT = 0, lastD = -1, last = performance.now();
     var obs = [], pick = [], spawnX = W + 100, clouds = [];
-    var IMG = { box: Icons.image("box", 52, 52), rock: Icons.image("rock", 52, 52), cactus: Icons.image("cactus", 52, 52) };
-    var FISH = Icons.image("fish", 38, 38), RUN = [Icons.image("catrun1", 90, 62), Icons.image("catrun2", 90, 62)];
+    function sprite(html, w, h) { var e = document.createElement("div"); e.className = "sp"; e.style.width = w + "px"; e.style.height = h + "px"; e.innerHTML = html; area.appendChild(e); return e; }
+    var catEl = sprite('<div class="f1">' + Icons.catrun(1) + '</div><div class="f2" style="display:none">' + Icons.catrun(2) + "</div>", 84, 58);
+    var f1 = catEl.firstChild, f2 = catEl.lastChild;
     for (var i = 0; i < 4; i++) clouds.push({ x: Math.random() * W, y: 50 + Math.random() * 110, s: 0.6 + Math.random() * 0.7 });
     function doJump() { if (onGround && !ended) { vy = -560; onGround = false; SFX.jump(); } }
     area.addEventListener("pointerdown", doJump);
@@ -229,13 +230,13 @@ window.Games = (function () {
       // engel ve balık üret
       spawnX -= speed * dt;
       if (spawnX < W - 60 - Math.random() * 240 && obs.length < 3 && spawnX < W) {
-        obs.push({ x: W + 40, k: rnd(["box", "rock", "cactus"]) });
-        if (Math.random() < 0.7) pick.push({ x: W + 40 + 130 + Math.random() * 60, y: -(60 + Math.random() * 85) });
+        obs.push({ x: W + 40, k: rnd(["box", "rock", "cactus"]) }); obs[obs.length - 1].el = sprite(Icons.svg(obs[obs.length - 1].k), 52, 52);
+        if (Math.random() < 0.7) { var np = { x: W + 40 + 130 + Math.random() * 60, y: -(60 + Math.random() * 85) }; np.el = sprite(Icons.svg("fish"), 38, 38); pick.push(np); }
         spawnX = W + 220 + Math.random() * 240;
       }
       obs.forEach(function (o) { o.x -= speed * dt; });
       pick.forEach(function (p) { p.x -= speed * dt; });
-      obs = obs.filter(function (o) { return o.x > -60; });
+      obs = obs.filter(function (o) { if (o.x > -60) return true; if (o.el.parentNode) o.el.parentNode.removeChild(o.el); return false; });
       // çarpışma
       for (var i = 0; i < obs.length; i++) {
         if (Math.abs(obs[i].x - cx) < 34 && y > -44) {
@@ -245,8 +246,8 @@ window.Games = (function () {
       }
       for (var k = pick.length - 1; k >= 0; k--) {
         var p = pick[k];
-        if (Math.abs(p.x - cx) < 38 && Math.abs(p.y - y) < 52) { fishN++; SFX.coin(); hud(null, fishN); pick.splice(k, 1); }
-        else if (p.x < -40) pick.splice(k, 1);
+        if (Math.abs(p.x - cx) < 38 && Math.abs(p.y - y) < 52) { fishN++; SFX.coin(); hud(null, fishN); pick.splice(k, 1); if (p.el.parentNode) p.el.parentNode.removeChild(p.el); }
+        else if (p.x < -40) { pick.splice(k, 1); if (p.el.parentNode) p.el.parentNode.removeChild(p.el); }
       }
       var dd = Math.floor(dist); if (dd !== lastD) { lastD = dd; hud(dd + " m"); }
 
@@ -264,15 +265,13 @@ window.Games = (function () {
       g.fillStyle = "#e98aa4"; g.fillRect(0, ground, W, 6);
       g.fillStyle = "rgba(255,255,255,.55)";
       for (var gx = -(scroll % 64); gx < W; gx += 64) { g.fillRect(gx, ground + 24, 26, 5); g.fillRect(gx + 32, ground + 46, 18, 4); }
-      obs.forEach(function (o) { img(IMG[o.k], o.x - 26, ground - 50, 52, 52); });
-      pick.forEach(function (p) { img(FISH, p.x - 19, ground + p.y - 38, 38, 38); });
-      // gölge + kedi
+      obs.forEach(function (o) { o.el.style.transform = "translate(" + (o.x - 26) + "px," + (ground - 50) + "px)"; });
+      pick.forEach(function (p) { p.el.style.transform = "translate(" + (p.x - 19) + "px," + (ground + p.y - 38) + "px)"; });
       g.fillStyle = "rgba(120,60,90,.22)"; g.beginPath();
       g.ellipse(cx, ground + 5, Math.max(12, 30 + y / 6), 5, 0, 0, 6.2832); g.fill();
-      g.save(); g.translate(cx, ground + y + 2);
-      if (!onGround) g.rotate(clamp(vy / 1800, -0.35, 0.35));
-      img(RUN[onGround ? Math.floor(runT / 0.1) % 2 : 0], -42, -58, 84, 58);
-      g.restore();
+      var fr = onGround ? Math.floor(runT / 0.1) % 2 : 0;
+      f1.style.display = fr ? "none" : "block"; f2.style.display = fr ? "block" : "none";
+      catEl.style.transform = "translate(" + (cx - 42) + "px," + (ground + y + 2 - 58) + "px) rotate(" + (onGround ? 0 : clamp(vy / 1800, -0.35, 0.35)) + "rad)";
       raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);

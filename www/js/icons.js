@@ -141,5 +141,5 @@ window.Icons = (function () {
   }
   function names() { return Object.keys(C).concat(Object.keys(G)); }
 
-  return { svg: svg, i: i, mount: mount, image: image, names: names, has: function (n) { return !!(C[n] || G[n]); } };
+  return { catrun: catrun, svg: svg, i: i, mount: mount, image: image, names: names, has: function (n) { return !!(C[n] || G[n]); } };
 })();
